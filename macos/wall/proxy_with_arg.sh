@@ -8,6 +8,7 @@ args=("$@")
 for arg in "${args[@]}";
 do
 	echo "Entered cmd: $1"
+	echo ""
 	bash -c "$1"
 	echo
 done
