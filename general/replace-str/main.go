@@ -1,21 +1,25 @@
 package main
 
 import (
+	"errors"
 	"flag"
-	"regexp"
+	"os"
 )
 
 func main() {
 	// phrase flags
-
-	// read input
+	/*
+	inputStr, configStr, outputPath, err := phraseFlags()
+	if err != nil {
+		println(err, '\n')
+		flag.Usage()
+		os.Exit(1)
+	}
+	*/
 	// replace
-
-	reg := regexp.MustCompile(`{{ ([^{}]*) }}`)
-	reg.ReplaceAllStringFunc("{{city}}, {{ state }} {{ zip }}", replace)
 }
 
-func phraseFlags() {
+func phraseFlags() (inputStr, configStr, outputPath string, err error) {
 	var (
 		template string
 		templateFile string
@@ -30,4 +34,37 @@ func phraseFlags() {
 	flag.StringVar(&configFile, "config", "", "The config file, contenting data")
 	flag.StringVar(&outputFile, "o", "", "The output file path. The program prints string as default, if no path specified")
 
+	if template == "" && templateFile == "" {
+		e := "must specify input string or file with -i or -input\n"
+		return "", "", "", errors.New(e) 
+	}
+	if template != "" && templateFile != "" {
+		e := "cannot specify both input string and file\n"
+		return "", "", "", errors.New(e) 
+	}
+	if config == "" && configFile == "" {
+		e := "must specify config string or file with -i or -input\n"
+		return "", "", "", errors.New(e) 
+	}
+	if config != "" && configFile != "" {
+		e := "cannot specify both config string and file\n"
+		return "", "", "", errors.New(e) 
+	}
+
+	if templateFile != "" {
+		buffer, err := os.ReadFile(templateFile)
+		if err != nil {
+			return "", "", "",  err
+		}
+		template = string(buffer)
+	}
+	if configFile != "" {
+		buffer, err := os.ReadFile(configFile)
+		if err != nil {
+			return "", "", "",  err
+		}
+		config = string(buffer)
+	}
+
+	return template, config, outputFile, nil
 }
