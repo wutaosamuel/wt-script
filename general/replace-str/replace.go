@@ -7,6 +7,7 @@ import (
 
 const (
 	Pattern = `{{ ([^{}]*) }}`
+	KVPattern = `(\w+)=([^=]*\w)(?:\s|$)`
 )
 
 func ReplaceString(inputStr string, KVs map[string]string) (string, error) {
@@ -58,6 +59,15 @@ func ReplaceString(inputStr string, KVs map[string]string) (string, error) {
 	return outputStr, nil
 }
 
-func replace(str string) string {
-	return ""
+func GetKVs(configStr string) map[string]string {
+	var KVs = make(map[string]string, 0)
+
+	reg := regexp.MustCompile(KVPattern)
+	matches := reg.FindAllStringSubmatch(configStr, -1)
+
+	for _, match := range matches {
+		KVs[match[1]] = match[2]
+	}
+
+	return KVs
 }
