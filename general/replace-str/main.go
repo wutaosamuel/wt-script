@@ -46,26 +46,33 @@ func phraseFlags() (inputStr, configStr, outputPath string, err error) {
 		outputFile   string
 	)
 
-	flag.StringVar(&template, "i", "", "The template string for processing")
-	flag.StringVar(&templateFile, "input", "", "The template file path for processing")
-	flag.StringVar(&config, "c", "", "The config string, contenting data")
-	flag.StringVar(&configFile, "config", "", "The config file, contenting data")
-	flag.StringVar(&outputFile, "o", "", "The output file path. The program prints string as default, if no path specified")
+	flag.StringVar(&template, "i", "", "template string ")
+	flag.StringVar(&templateFile, "input", "", "template file path")
+	flag.StringVar(&config, "c", "", "config string")
+	flag.StringVar(&configFile, "config", "", "config file path")
+	flag.StringVar(&outputFile, "o", "", "output file path, The program prints string as default, if no path specified")
+
+	flag.Usage = func() {
+		fmt.Println("usage: [-i | -input] [-c | -config] [-o]")
+		fmt.Println()
+		
+		flag.PrintDefaults()
+	}
 
 	if template == "" && templateFile == "" {
-		e := "must specify input string or file with -i or -input\n"
+		e := "must specify input string or file with -i or -input"
 		return "", "", "", errors.New(e)
 	}
 	if template != "" && templateFile != "" {
-		e := "cannot specify both input string and file\n"
+		e := "cannot specify both input string and file"
 		return "", "", "", errors.New(e)
 	}
 	if config == "" && configFile == "" {
-		e := "must specify config string or file with -i or -input\n"
+		e := "must specify config string or file with -i or -input"
 		return "", "", "", errors.New(e)
 	}
 	if config != "" && configFile != "" {
-		e := "cannot specify both config string and file\n"
+		e := "cannot specify both config string and file"
 		return "", "", "", errors.New(e)
 	}
 
