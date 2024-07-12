@@ -7,14 +7,17 @@ import (
 	"os"
 )
 
+// TODO: add support for comment
+
 func main() {
 	// phrase flags
 	inputStr, configStr, outputPath, err := phraseFlags()
 	if err != nil {
-		println(err, '\n')
+		fmt.Println(err)
 		flag.Usage()
 		os.Exit(1)
 	}
+	fmt.Println("input")
 
 	// convert configStr to map[string]string
 	config := GetKVs(configStr)
@@ -22,7 +25,7 @@ func main() {
 	// replace
 	result, err := ReplaceString(inputStr, config)
 	if err != nil {
-		println(err, '\n')
+		fmt.Println(err, '\n')
 		os.Exit(1)
 	}
 
@@ -31,7 +34,7 @@ func main() {
 		fmt.Print(result)
 	} else {
 		if err := os.WriteFile(outputPath, []byte(result), 0644); err != nil {
-			println(err, '\n')
+			fmt.Println(err, '\n')
 			os.Exit(1)
 		}
 	}

@@ -25,6 +25,7 @@ func TestReplaceString(t *testing.T) {
 
 const (
 	config = `city=Shang Hai
+
 zip=30000`
 	config2 = "city=Shang Hai zip=30000"
 	config3 = "name=Hello World gender=male phone=00 123456"
