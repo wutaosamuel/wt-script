@@ -24,7 +24,7 @@ func TestReplaceString(t *testing.T) {
 }
 
 const (
-	config = `city=Shang Hai
+	config1 = `city=Shang Hai
 
 zip=30000`
 	config2 = "city=Shang Hai zip=30000"
@@ -44,7 +44,7 @@ var (
 )
 
 func TestGetKVs(t *testing.T) {
-	kv := GetKVs(config)
+	kv := GetKVs(config1)
 	if !isMapEqual(kv, configKV) {
 		t.Error("config not equal")
 	}

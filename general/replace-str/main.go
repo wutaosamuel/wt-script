@@ -47,6 +47,8 @@ func phraseFlags() (inputStr, configStr, outputPath string, err error) {
 		config       string
 		configFile   string
 		outputFile   string
+		help         bool
+		helpFlag     bool
 	)
 
 	flag.StringVar(&template, "i", "", "template string ")
@@ -54,14 +56,20 @@ func phraseFlags() (inputStr, configStr, outputPath string, err error) {
 	flag.StringVar(&config, "c", "", "config string")
 	flag.StringVar(&configFile, "config", "", "config file path")
 	flag.StringVar(&outputFile, "o", "", "output file path, The program prints string as default, if no path specified")
-
+	flag.BoolVar(&help, "h", false, "show help")
+	flag.BoolVar(&helpFlag, "help", false, "show help")
 	flag.Usage = func() {
 		fmt.Println("usage: [-i | -input] [-c | -config] [-o]")
 		fmt.Println()
-		
+
 		flag.PrintDefaults()
 	}
 
+	flag.Parse()
+	if help || helpFlag {
+		flag.Usage()
+		os.Exit(0)
+	}
 	if template == "" && templateFile == "" {
 		e := "must specify input string or file with -i or -input"
 		return "", "", "", errors.New(e)
