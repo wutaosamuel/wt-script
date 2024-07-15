@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	Pattern = `{{ ([^{}]*) }}`
+	Pattern   = `{{ ([^{}]*) }}`
 	KVPattern = `(\w+)=([^=]*\w)(?:\s|$)`
 )
 
@@ -28,6 +28,9 @@ func ReplaceString(inputStr string, KVs map[string]string) (string, error) {
 		}
 		return ""
 	})
+	DBG_PRINTF("replaced key: len %d, %q\n", len(replacedKey), replacedKey)
+	DBG_PRINTF("not used Key: len %d, %q\n", len(excludeKey), excludeKey)
+	DBG_PRINTF("config key/val: %q\n", KVs)
 
 	if len(excludeKey) != 0 {
 		err := "the template has the following keys not used:\n"
@@ -44,7 +47,7 @@ func ReplaceString(inputStr string, KVs map[string]string) (string, error) {
 			for _, r := range replacedKey {
 				if key == r {
 					end = true
-					break;
+					break
 				}
 			}
 
@@ -53,6 +56,7 @@ func ReplaceString(inputStr string, KVs map[string]string) (string, error) {
 			}
 		}
 
+		DBG_PRINTLN("replaced result:", outputStr)
 		return outputStr, errors.New(err)
 	}
 

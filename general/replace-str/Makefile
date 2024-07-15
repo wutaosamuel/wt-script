@@ -6,6 +6,10 @@ GOTEST=$(GOCC) test
 GORUN=$(GOCC) run
 BINARY_NAME=replace-str
 
+# args
+GOTAG=-tags
+DEBUG_TAG=$(GOTAG) debug
+
 # CMD dir
 ## GOCMD=./cmd
 ## GOBUILDWIN=$(GOCMD)/replace-str
@@ -27,7 +31,7 @@ clean:
 deps:
 	$(GOGET) -u 
 debug:
-	$(GORUN) . -input $(TESTDIR)/str.templ -config $(TESTDIR)/str.env -o $(TESTDIR)/str-result.txt
+	$(GORUN) $(DEBUG_TAG) . -input $(TESTDIR)/str.templ -config $(TESTDIR)/str.env -o $(TESTDIR)/str-result.txt
 
 # Cross compilation
 build-win:
