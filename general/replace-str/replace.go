@@ -7,7 +7,7 @@ import (
 
 const (
 	Pattern   = `{{ ([^{}]*) }}`
-	KVPattern = `(\w+)=([^=]*\w)(?:\s|$)`
+	KVPattern = `([\w\S]+)=([^=]*[\w\S])(?:\s|$)`
 )
 
 func ReplaceString(inputStr string, KVs map[string]string) (string, error) {

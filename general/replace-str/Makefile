@@ -24,7 +24,7 @@ all: test build
 build:
 	$(GOBUILD) -o $(BINARY_NAME)
 test:
-	$(GOTEST) v .
+	$(GOTEST) -v .
 clean:
 	$(GOCLEAN)
 	rm -f $(BINARY_NAME)
@@ -32,6 +32,8 @@ deps:
 	$(GOGET) -u 
 debug:
 	$(GORUN) $(DEBUG_TAG) . -input $(TESTDIR)/str.templ -config $(TESTDIR)/str.env -o $(TESTDIR)/str-result.txt
+debug-clean:
+	rm $(TESTDIR)/str-result.txt
 
 # Cross compilation
 build-win:
