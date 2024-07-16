@@ -1,16 +1,14 @@
 #!/bin/bash
 
-export http_proxy="http://172.16.63.20:10089"
-export https_proxy="http://172.16.63.20:10089"
-
-# TODO: check connection with ping
+export http_proxy="http://127.0.0.1:1087"
+export https_proxy="http://127.0.0.1:1087"
 
 args=("$@")
 
-for arg in "${args[@]}";
+for i in "${!args[@]}";
 do
-	echo "Entered cmd: $1"
-	echo ""
-	bash -c "$1"
+	echo "$i. Entered cmd[$i]: ${args[$i]}"
+	echo 
+	bash -c "${args[$i]}"
 	echo
 done
