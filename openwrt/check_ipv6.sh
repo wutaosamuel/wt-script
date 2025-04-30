@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# check log: logread | grep ipv6-check
+
 # dnspod dns & ali dns server 
 TARGETS="v6ns1.dnspod.net 2400:3200:baba::1"
 FAIL_COUNT_FILE="/tmp/ipv6_failcount"
