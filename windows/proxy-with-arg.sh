@@ -1,27 +1,41 @@
 #!/bin/bash
 
-PROXY=http://172.16.63.20:10089
+this_proxy="http://172.16.63.20:10089"
 
-export ALL_PROXY=$PROXY
-export all_proxy=$PROXY
+# parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -p|--proxy)
+            this_proxy="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown argument: $1"
+            exit 1
+            ;;
+    esac
+done
 
-export HTTP_PROXY=$PROXY
-export http_proxy=$PROXY
+export ALL_PROXY=$this_proxy
+export all_proxy=$this_proxy
 
-export HTTPS_PROXY=$PROXY
-export https_proxy=$PROXY
+export HTTP_PROXY=$this_proxy
+export http_proxy=$this_proxy
 
-#export SOCKS_PROXY=$PROXY
-#export socks_proxy=$PROXY
+export HTTPS_PROXY=$this_proxy
+export https_proxy=$this_proxy
 
-export FTP_PROXY=$PROXY
-export ftp_proxy=$PROXY
+#export SOCKS_PROXY=$this_proxy
+#export socks_proxy=$this_proxy
 
-export TELNET_PROXY=$PROXY
-export telnet_proxy=$PROXY
+export FTP_PROXY=$this_proxy
+export ftp_proxy=$this_proxy
 
-#export RSYNC_PROXY=$PROXY
-#export rsync_proxy=$PROXY
+export TELNET_PROXY=$this_proxy
+export telnet_proxy=$this_proxy
+
+#export RSYNC_PROXY=$this_proxy
+#export rsync_proxy=$this_proxy
 
 args=("$@")
 

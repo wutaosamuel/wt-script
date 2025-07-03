@@ -1,9 +1,6 @@
 #!/bin/bash
 
-this_proxy="http://127.0.0.1:1087"
-
-# export http_proxy="http://127.0.0.1:1087"
-# export https_proxy="http://127.0.0.1:1087"
+this_proxy="http://172.16.8.172:10089"
 
 # parse arguments
 while [[ $# -gt 0 ]]; do
@@ -28,11 +25,17 @@ export http_proxy=$this_proxy
 export HTTPS_PROXY=$this_proxy
 export https_proxy=$this_proxy
 
+#export SOCKS_PROXY=$this_proxy
+#export socks_proxy=$this_proxy
+
 export FTP_PROXY=$this_proxy
 export ftp_proxy=$this_proxy
 
 export TELNET_PROXY=$this_proxy
 export telnet_proxy=$this_proxy
+
+#export RSYNC_PROXY=$this_proxy
+#export rsync_proxy=$this_proxy
 
 args=("$@")
 
