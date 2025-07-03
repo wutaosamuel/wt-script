@@ -67,18 +67,19 @@ def com_print(port: str = '', baudrate: int = 115200, is_save: bool = False, fil
 	com = Serial(port=port, baudrate=baudrate)
 	def _read_com():
 		while True:
-			if com.in_waiting > 0:
+			if com.in_waiting:
 				content = com.read(com.in_waiting)
 				now = time.time()
 				timed_list.append(now, content)
 				print(time.strftime("%Y-%m-%d %H:%M:%S:", time.localtime(now)), content)
-			else:
-				time.sleep(0.1)
 
 	# Read data
 	try:
+		thread = threading.Thread(target=_read_com, daemon=True)
+		thread.start()
 		print("Start to read data, press Ctrl+C to exist")
-		_read_com()
+		while True:
+			pass
 	except KeyboardInterrupt:
 		print("Exit")
 	finally:
@@ -138,10 +139,10 @@ def main():
 		print("Error: -i | --input file name must be a string value.")
 		sys.exit(1)
 
-	print(f"Port: {port}")
-	print(f"Baudrate: {baud_rate}")
-	print(f"Save: {is_save}")
-	print(f"File to save: {input_file}")
+	#print(f"Port: {port}")
+	#print(f"Baudrate: {baud_rate}")
+	#print(f"Save: {is_save}")
+	#print(f"File to save: {input_file}")
 	print()
 
 	com_print(port=port, baudrate=baud_rate, is_save=is_save, filename=input_file)
