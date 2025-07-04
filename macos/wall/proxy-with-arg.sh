@@ -5,6 +5,8 @@ this_proxy="http://127.0.0.1:1087"
 # export http_proxy="http://127.0.0.1:1087"
 # export https_proxy="http://127.0.0.1:1087"
 
+args=()
+
 # parse arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -13,8 +15,8 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         *)
-            echo "Unknown argument: $1"
-            exit 1
+            args+=("$1")
+            shift
             ;;
     esac
 done
@@ -33,8 +35,6 @@ export ftp_proxy=$this_proxy
 
 export TELNET_PROXY=$this_proxy
 export telnet_proxy=$this_proxy
-
-args=("$@")
 
 for i in "${!args[@]}";
 do

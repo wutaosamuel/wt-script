@@ -2,6 +2,8 @@
 
 this_proxy="http://172.16.63.20:10089"
 
+args=()
+
 # parse arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -10,8 +12,8 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         *)
-            echo "Unknown argument: $1"
-            exit 1
+            args+=("$1")
+            shift
             ;;
     esac
 done
@@ -36,8 +38,6 @@ export telnet_proxy=$this_proxy
 
 export RSYNC_PROXY=$this_proxy
 export rsync_proxy=$this_proxy
-
-args=("$@")
 
 for i in "${!args[@]}";
 do
