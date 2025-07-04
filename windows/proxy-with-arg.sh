@@ -39,7 +39,6 @@ export telnet_proxy=$this_proxy
 #export RSYNC_PROXY=$this_proxy
 #export rsync_proxy=$this_proxy
 
-
 for i in "${!args[@]}";
 do
 	echo "$i. Entered cmd[$i]: ${args[$i]}"
