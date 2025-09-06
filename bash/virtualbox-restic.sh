@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# restore
+# restic -r "${repo}" snapshots
+# restic -r "${repo}" restore "<snapshot_id>" --target "${dir}"
+
 usage() {
     echo "Usage: $0 -r <repo> -t <target> -g <tag> "
     echo ""
@@ -8,8 +12,8 @@ usage() {
     exit 1
 }
 
-repo=""
-target="./"
+repo="W:\virtualbox\tmp"
+target=$(dirname "$(realpath "$0")") # this script location
 tag=""
 
 basename=""
@@ -32,7 +36,6 @@ if [[ -z "${repo}" ]]; then
     #usage
 fi
 
-target=$(readlink -f "${target}")
 basename=$(basename "${target}")
 dirname=$(dirname "${target}")
 cd "${dirname}"
@@ -43,3 +46,4 @@ else
     restic -r "${repo}" --verbose backup "${basename}" --tag "${tag}"
 fi
 echo "${basename} backup done"
+echo ""
