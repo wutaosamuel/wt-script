@@ -13,7 +13,10 @@ repo=""
 tag=""
 
 target_dirs=(
+)
 
+exclude_items=(
+    --exclude ""
 )
 
 while [[ $# -gt 0 ]]; do
@@ -42,7 +45,7 @@ if [[ -z "$repo" ]]; then
 fi
 
 if [ -z "$tag" ]; then 
-    restic -r "$repo" --verbose backup "${target_dirs[@]}" 
+    restic -r "$repo" --verbose backup "${target_dirs[@]}" "${exclude_items[@]}"
 else 
-    restic -r "$repo" --verbose backup "${target_dirs[@]}" --tag "$tag"
+    restic -r "$repo" --verbose backup "${target_dirs[@]}" "${exclude_items[@]}" --tag "$tag"
 fi
